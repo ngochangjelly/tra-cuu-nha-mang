@@ -1,5 +1,8 @@
 const MAX_CHARACTERS = 4
 $(document).ready(function () {
+  $('#search').on('keyup', function () {
+    $(this).maxLength = MAX_CHARACTERS
+  })
   window.$.getJSON('list.json', function (response) {
     const finalResponse = response.map(r => {
       return {
@@ -12,7 +15,8 @@ $(document).ready(function () {
         keys: ['concatNumber'],
         minMatchCharLength: inputValue.length,
         findAllMatches: true,
-        threshold: 0.0
+        threshold: 0.0,
+        ignoreLocation: true
       });
       let resultdiv = $('ul.searchresults');
       resultdiv.empty();
@@ -20,15 +24,13 @@ $(document).ready(function () {
       if (inputValue === '') {
         return
       }
-      let result = fuse.search(inputValue);
-      // Output it
+      let searchPhrase = inputValue.length > 4 ? inputValue.slice(0, 4): inputValue
+      let result = fuse.search(searchPhrase);
       if (result.length === 0) {
         resultdiv.append('<li>Không tìm thấy nhà mạng nào tương ứng với số điện thoại này</li>')
-        // Hide results
         resultdiv.show();
       }
       if (result.length > 0) {
-        // Show results
         resultdiv.empty();
         for (let item in result) {
           let searchitem = '<li><b>Nhà mạng</b> ' + result[item].item.name + '</li>' 
