@@ -14,5 +14,5 @@ To start this project locally, follow these steps:
 
 1. Clone this repo
 2. In the working folder, run npm install
-3. Open index.htmk with live server
+3. Open index.htm with live server
 4. After changing css in styles.scss, run npm run scss to compile scss into css and update UI
