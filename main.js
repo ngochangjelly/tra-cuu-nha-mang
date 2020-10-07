@@ -1,3 +1,4 @@
+const MAX_CHARACTERS = 4
 $(document).ready(function () {
   window.$.getJSON('list.json', function (response) {
     const finalResponse = response.map(r => {
@@ -9,7 +10,9 @@ $(document).ready(function () {
       let inputValue = $(this).val().trim()
       const fuse = new Fuse(finalResponse, {
         keys: ['concatNumber'],
-        minMatchCharLength: inputValue.length
+        minMatchCharLength: inputValue.length,
+        findAllMatches: true,
+        threshold: 0.0
       });
       let resultdiv = $('ul.searchresults');
       resultdiv.empty();
