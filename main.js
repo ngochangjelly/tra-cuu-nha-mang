@@ -1,8 +1,5 @@
 const MAX_CHARACTERS = 4
 $(document).ready(function () {
-  $('#search').on('keyup', function () {
-    $(this).maxLength = MAX_CHARACTERS
-  })
   window.$.getJSON('list.json', function (response) {
     const finalResponse = response.map(r => {
       return {
@@ -24,7 +21,9 @@ $(document).ready(function () {
       if (inputValue === '') {
         return
       }
+      console.log(inputValue.length)
       let searchPhrase = inputValue.length > 4 ? inputValue.slice(0, 4): inputValue
+      console.log(searchPhrase)
       let result = fuse.search(searchPhrase);
       if (result.length === 0) {
         resultdiv.append('<li>Không tìm thấy nhà mạng nào tương ứng với số điện thoại này</li>')
